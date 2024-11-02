@@ -29,7 +29,6 @@ jobs:
           echo ".NET Runtime version on Server 1:"
           dotnet --list-runtimes
 
-  # Check Database Version at the Data Access Level (Server 2)
   check_database_versions:
     runs-on: windows-latest
     steps:
@@ -39,7 +38,7 @@ jobs:
       - name: Install PostgreSQL
         run: |
           echo "Installing PostgreSQL..."
-          choco install postgresql --version=12.6 -y
+          choco install postgresql -y
 
       - name: Print PostgreSQL version
         run: |
