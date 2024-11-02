@@ -29,7 +29,7 @@ jobs:
           echo ".NET Runtime version on Server 1:"
           dotnet --list-runtimes
 
- # Check Database Version at the Data Access Level (Server 2)
+  # Check Database Version at the Data Access Level (Server 2)
   check_database_versions:
     runs-on: windows-latest
     steps:
@@ -39,4 +39,4 @@ jobs:
       - name: Print PostgreSQL version
         run: |
           echo "PostgreSQL version on Server 2:"
-          "C:\Program Files\PostgreSQL\17\bin\psql.exe" --version
+          & "C:\Program Files\PostgreSQL\17\bin\psql.exe" --version
