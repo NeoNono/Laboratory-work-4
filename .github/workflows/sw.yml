@@ -29,14 +29,28 @@ jobs:
           echo ".NET Runtime version on Server 1:"
           dotnet --list-runtimes
 
-  # Check Database Version at the Data Access Level (Server 2)
+ # Check Database Version at the Data Access Level (Server 2)
   check_database_versions:
     runs-on: windows-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Print PostgreSQL version
+      - name: Install SQLite
         run: |
-          echo "PostgreSQL version on Server 2:"
-          & "C:\Program Files\PostgreSQL\17\bin\psql.exe" --version
+          choco install sqlite
+
+      - name: Print SQLite version
+        run: |
+          echo "SQLite version on Server 2:"
+          sqlite3 --version
+
+      - name: Create a sample database and table
+        run: |
+          sqlite3 test.db "CREATE TABLE IF NOT EXISTS test_table (id INTEGER PRIMARY KEY, name TEXT);"
+          sqlite3 test.db "INSERT INTO test_table (name) VALUES ('Sample Entry');"
+
+      - name: Query the sample database
+        run: |
+          echo "Querying the sample database:"
+          sqlite3 test.db "SELECT * FROM test_table;"
