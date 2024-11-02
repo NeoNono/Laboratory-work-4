@@ -29,18 +29,14 @@ jobs:
           echo ".NET Runtime version on Server 1:"
           dotnet --list-runtimes
 
+   # Check Database Version at the Data Access Level (Server 2)
   check_database_versions:
     runs-on: windows-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Set up PostgreSQL
-        run: |
-          echo "Adding PostgreSQL to PATH"
-          setx PATH "%PATH%;C:\Program Files\PostgreSQL\17\bin"
-
       - name: Print PostgreSQL version
         run: |
           echo "PostgreSQL version on Server 2:"
-          psql --version || echo "psql not found."
+          psql --version
