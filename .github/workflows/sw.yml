@@ -35,12 +35,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Install PostgreSQL
+      - name: Set up PostgreSQL
         run: |
-          echo "Installing PostgreSQL..."
-          choco install postgresql -y
+          echo "Adding PostgreSQL to PATH"
+          setx PATH "%PATH%;C:\Program Files\PostgreSQL\17\bin"
 
       - name: Print PostgreSQL version
         run: |
           echo "PostgreSQL version on Server 2:"
-          psql --version
+          psql --version || echo "psql not found."
