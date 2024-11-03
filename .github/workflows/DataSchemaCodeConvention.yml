@@ -22,5 +22,5 @@ jobs:
         shell: bash
         run: |
           echo "Linting JSON file..."
-          json_file="./JSON_DetailedDataSchema_Example.json"
+          json_file="./DataSchemaModified.json"
           jq empty "$json_file"
