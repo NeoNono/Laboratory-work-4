@@ -1,0 +1,26 @@
+name: Data Schema Code Convention Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  json_linting:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Install jq
+        run: choco install jq -y
+
+      - name: Validate JSON file
+        shell: bash
+        run: |
+          echo "Linting JSON file..."
+          json_file="./JSON_DetailedDataSchema_Example.json"
+          jq empty "$json_file"
