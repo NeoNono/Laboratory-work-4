@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "System Configuration Schema",
+  "description": "A JSON Schema for system configuration and user information",
+  "type": "object",
+  "properties": {
+    "System": {
+      "type": "object",
+      "description": "System configuration and network stability",
+      "properties": {
+        "internetConnection": {
+          "type": "boolean",
+          "description": "Process of connecting system to the Internet"
+        },
+        "stability": {
+          "type": "boolean",
+          "description": "System's ability to function without failures"
+        }
+      },
+      "required": ["internetConnection", "stability"]
+    },
+    "User": {
+      "type": "object",
+      "description": "User profile details",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique identifier for the user",
+          "pattern": "^[A-Za-z0-9]{5,}$"
+        },
+        "name": {
+          "type": "string",
+          "description": "User's name",
+          "minLength": 3,
+          "maxLength": 20,
+          "pattern": "^[A-Za-z]{3,20}$"
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address",
+          "format": "email"
+        }
+      },
+      "required": ["userId", "name"]
+    },
+    "InstallationPackage": {
+      "type": "object",
+      "description": "Installation package containing files to be installed",
+      "properties": {
+        "files": {
+          "type": "array",
+          "description": "List of files for installation",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "requ": ["files"
+    },
+    "InstallationProcess": {
+      "type": "object",
+      "description": "Current status of the installation process",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the installation process",
+          "pattern": "^(completed|in_progress|failed)$"
+        }
+      },
+      "required": ["status"]
+    },
+    "BasicConfiguration": {
+      "type": "object",
+      "description": "Basic configuration settings of the system",
+      "properties": {
+        "settings": {
+          "type": "object",
+          "description": "System settings in key-value pairs",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["settings"]
+    },
+    "UpdateProcess": {
+      "type": "object",
+      "description": "Update process for the system",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Software version number",
+          "minLength": 1,
+          "maxLength": 20
+        }
+      },
+      "required": ["version"]
+    },
+    "DeprecatedComponents": {
+      "type": "object",
+      "description": "List of deprecated components in the system",
+      "properties": {
+        "components": {
+          "type": "array",
+          "description": "Array of deprecated component names",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": ["components"]
+    }
+  },
+  "required": [
+    "System",
+    "User",
+    "InstallationPackage",
+    "InstallationProcess",
+    "BasicConfiguration",
+    "UpdateProcess",
+    "DeprecatedComponents"
+  ]
+}
